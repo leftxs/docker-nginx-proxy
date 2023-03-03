@@ -1,0 +1,33 @@
+services:
+  proxy:
+    build: ./
+    container_name: nginx-proxy
+    ports:
+      - 80:80
+    networks:
+      - web
+
+  app1:
+    image: nginx
+    container_name: app1
+    volumes:
+      - ./app1.html:/usr/share/nginx/html/index.html
+    ports:
+      - "80"
+    networks:
+      - web
+
+  app2:
+    image: nginx
+    container_name: app2
+    volumes:
+      - ./app2.html:/usr/share/nginx/html/index.html
+    ports:
+      - "80"
+    networks:
+      - web
+
+networks:
+  web:
+    name: web
+    driver: bridge
